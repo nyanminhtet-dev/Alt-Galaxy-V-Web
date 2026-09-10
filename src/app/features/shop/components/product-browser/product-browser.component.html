@@ -1,0 +1,37 @@
+<section class="bg-yg-bg" aria-labelledby="browse-merchandise-title">
+  <div class="mx-auto max-w-[1720px] px-4 py-2 sm:px-6 lg:px-8">
+    <div class="mb-3 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+      <h2 id="browse-merchandise-title" class="text-xl font-bold text-white">Browse Merchandise</h2>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-[14rem_1fr] xl:grid-cols-[14.5rem_1fr]">
+      <app-product-filter-sidebar
+        [categories]="categories"
+        [selectedCategory]="selectedCategory"
+        [productTypes]="productTypes"
+        [selectedProductTypes]="selectedProductTypes"
+        [availabilityOptions]="availabilityOptions"
+        [selectedAvailability]="selectedAvailability"
+        [selectedSpecial]="selectedSpecial"
+        (categorySelected)="selectCategory($event)"
+        (productTypeToggled)="toggleProductType($event)"
+        (availabilityToggled)="toggleAvailability($event)"
+        (cleared)="clearFilters()">
+      </app-product-filter-sidebar>
+
+      <div class="min-w-0">
+        <app-browse-toolbar
+          [sort]="sort"
+          [productCount]="filteredProducts.length"
+          (sortSelected)="updateSort($event)">
+        </app-browse-toolbar>
+
+        <app-product-grid
+          [products]="filteredProducts"
+          (addToCart)="addToCart.emit($event)"
+          (wishlist)="wishlist.emit($event)">
+        </app-product-grid>
+      </div>
+    </div>
+  </div>
+</section>

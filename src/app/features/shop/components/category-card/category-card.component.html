@@ -1,0 +1,23 @@
+<article class="group h-full overflow-hidden rounded-lg border border-white/[0.08] bg-yg-surface transition hover:border-yg-purple-400/50 hover:shadow-glow-sm">
+  <button
+    type="button"
+    class="relative block h-44 w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-yg-bg sm:h-48 lg:h-52"
+    (click)="categorySelected.emit(category)">
+    <span class="absolute inset-0 block overflow-hidden">
+      <img
+        class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+        [src]="category.image"
+        [alt]="category.imageAlt"
+        loading="lazy">
+      <span class="absolute inset-0 bg-gradient-to-t from-black/92 via-black/38 to-black/5"></span>
+    </span>
+
+    <span class="relative z-10 flex h-full flex-col justify-end p-5">
+      <span class="block text-lg font-bold leading-6 text-white">{{ category.name }}</span>
+      <span class="mt-1.5 block text-xs leading-5 text-white/78">{{ category.description }}</span>
+      <span class="absolute bottom-5 right-5 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/[0.05] text-white/80 backdrop-blur transition group-hover:border-yg-purple-400/60 group-hover:bg-yg-purple-500 group-hover:text-white">
+        <lucide-icon name="arrow-right" [size]="16" aria-hidden="true"></lucide-icon>
+      </span>
+    </span>
+  </button>
+</article>

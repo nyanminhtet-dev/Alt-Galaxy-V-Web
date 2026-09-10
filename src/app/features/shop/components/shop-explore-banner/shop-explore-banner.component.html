@@ -1,0 +1,27 @@
+<section class="mx-auto max-w-[1720px] px-4 pb-8 pt-3 sm:px-6 lg:px-8" aria-labelledby="explore-merchandise-title">
+  <div class="relative overflow-hidden rounded-lg border border-white/[0.08] bg-yg-surface">
+    <img
+      class="absolute inset-0 h-full w-full object-cover opacity-45"
+      src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1800&q=85"
+      alt=""
+      loading="lazy">
+    <div class="absolute inset-0 bg-gradient-to-r from-black/95 via-yg-bg/78 to-black/35"></div>
+    <div class="absolute inset-y-0 right-0 hidden w-1/3 bg-yg-purple-500/10 blur-3xl sm:block"></div>
+
+    <div class="relative flex min-h-36 flex-col justify-center px-5 py-6 sm:px-8 lg:px-10">
+      <p id="explore-merchandise-title" class="text-xl font-black uppercase leading-6 tracking-normal text-white sm:text-2xl">
+        Explore All Merchandise
+      </p>
+      <p class="mt-2 max-w-xl text-xs leading-5 text-yg-muted sm:text-sm">
+        Discover our full collection of official YG Fandom merchandise.
+      </p>
+      <a
+        routerLink="/shop/products"
+        class="mt-4 inline-flex min-h-10 w-fit items-center justify-center gap-2 rounded-full bg-gradient-to-r from-yg-purple-600 to-yg-purple-400 px-5 text-xs font-bold text-white shadow-glow-sm transition hover:from-yg-purple-500 hover:to-yg-purple-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400"
+        aria-label="Browse all YG Fandom merchandise">
+        Browse All Products
+        <lucide-icon name="arrow-right" [size]="15" aria-hidden="true"></lucide-icon>
+      </a>
+    </div>
+  </div>
+</section>

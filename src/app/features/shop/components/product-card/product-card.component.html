@@ -1,0 +1,75 @@
+<article class="group flex h-full flex-col overflow-hidden rounded-lg border border-white/[0.08] bg-white/[0.035] p-2.5 transition hover:border-yg-purple-400/45 hover:bg-white/[0.045] hover:shadow-glow-sm">
+  <div class="relative h-28 overflow-hidden rounded-md bg-black/45">
+    <img
+      class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+      [src]="product.image"
+      [alt]="product.imageAlt"
+      loading="lazy">
+    <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-yg-bg/70 to-transparent"></div>
+    <span
+      *ngIf="product.badge"
+      class="absolute left-2 top-2 rounded-md bg-yg-purple-500 px-2 py-0.5 text-[0.6875rem] font-bold text-white shadow-glow-sm">
+      {{ product.badge }}
+    </span>
+    <button
+      type="button"
+      class="absolute right-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/15 bg-yg-bg/60 text-white backdrop-blur transition hover:border-yg-purple-400/50 hover:text-yg-purple-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400"
+      [attr.aria-label]="'Add ' + product.title + ' to wishlist'"
+      (click)="wishlist.emit(product)">
+      <lucide-icon name="heart" [size]="15" aria-hidden="true"></lucide-icon>
+    </button>
+  </div>
+
+  <div class="flex flex-1 flex-col pt-2.5">
+    <div class="flex items-start justify-between gap-3">
+      <div class="min-w-0">
+        <h3 class="truncate text-xs font-semibold leading-4 text-white">{{ product.title }}</h3>
+        <p class="mt-0.5 text-[0.6875rem] leading-4 text-yg-muted">{{ product.category }}</p>
+      </div>
+      <span
+        class="hidden rounded-md border px-2 py-1 text-xs font-semibold"
+        [ngClass]="{
+          'border-emerald-400/30 text-emerald-300': product.availability === 'in-stock',
+          'border-amber-400/30 text-amber-300': product.availability === 'low-stock',
+          'border-red-400/30 text-red-300': product.availability === 'sold-out'
+        }">
+        {{ availabilityLabel }}
+      </span>
+    </div>
+
+    <div class="mt-2 flex items-center justify-between gap-2">
+      <p class="text-xs font-semibold text-white">MMK {{ formatPrice(product.displayPriceMMK) }}</p>
+      <p class="inline-flex items-center gap-1 text-[0.6875rem] font-semibold text-yg-purple-200">
+        <lucide-icon name="sparkles" [size]="12" aria-hidden="true"></lucide-icon>
+        {{ formatPrice(product.featherCost) }}
+      </p>
+    </div>
+
+    <div class="mt-2">
+      <div class="flex flex-wrap gap-1">
+        <button
+          *ngFor="let variant of product.variants"
+          type="button"
+          class="min-h-5 min-w-7 rounded-sm border px-1.5 text-[0.625rem] font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 disabled:cursor-not-allowed disabled:opacity-45"
+          [ngClass]="{
+            'border-yg-purple-400 bg-yg-purple-500 text-white': activeVariant?.id === variant.id,
+            'border-yg-border text-yg-muted': activeVariant?.id !== variant.id
+          }"
+          [disabled]="!variant.active || variant.stockQty === 0"
+          [attr.aria-pressed]="activeVariant?.id === variant.id"
+          (click)="selectVariant(variant)">
+          {{ variant.size }}
+        </button>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="mt-3 inline-flex min-h-9 w-full items-center justify-center gap-1.5 rounded-md bg-gradient-to-r from-yg-purple-600 to-yg-purple-400 px-3 py-1.5 text-xs font-bold text-white shadow-glow-sm transition hover:from-yg-purple-500 hover:to-yg-purple-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 disabled:cursor-not-allowed disabled:from-yg-elevated disabled:to-yg-elevated disabled:text-yg-muted"
+      [disabled]="!available"
+      (click)="requestAddToCart()">
+      <lucide-icon name="shopping-cart" [size]="15" aria-hidden="true"></lucide-icon>
+      {{ available ? 'Add to Cart' : 'Unavailable' }}
+    </button>
+  </div>
+</article>

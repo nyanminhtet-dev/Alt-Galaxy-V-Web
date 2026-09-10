@@ -1,0 +1,23 @@
+<div class="bg-yg-bg">
+  <app-shop-hero [slide]="heroSlide" (ctaSelected)="handleHeroCta()"></app-shop-hero>
+
+  <app-featured-collections
+    [collections]="collections"
+    (collectionSelected)="handleCollectionSelected($event)">
+  </app-featured-collections>
+
+  <app-shop-by-category
+    [categories]="categories"
+    (categorySelected)="handleCategorySelected($event)">
+  </app-shop-by-category>
+
+  <app-trending-now
+    [products]="trendingProducts"
+    (addToCart)="handleAddToCart($event)"
+    (wishlist)="handleWishlist($event)">
+  </app-trending-now>
+
+  <app-shop-explore-banner></app-shop-explore-banner>
+
+  <app-shop-footer></app-shop-footer>
+</div>

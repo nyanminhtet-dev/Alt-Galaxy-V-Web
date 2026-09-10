@@ -1,0 +1,31 @@
+<div
+  class="grid grid-cols-[repeat(auto-fit,minmax(10.5rem,1fr))] gap-3"
+  role="status"
+  aria-label="Loading merchandise">
+  <article
+    *ngFor="let item of skeletonItems"
+    class="flex h-full animate-pulse flex-col overflow-hidden rounded-lg border border-white/[0.08] bg-white/[0.035] p-2.5"
+    aria-hidden="true">
+    <div class="h-28 rounded-md bg-white/[0.07]"></div>
+
+    <div class="flex flex-1 flex-col pt-2.5">
+      <div class="h-3.5 w-4/5 rounded-sm bg-white/[0.08]"></div>
+      <div class="mt-2 h-3 w-2/5 rounded-sm bg-white/[0.06]"></div>
+
+      <div class="mt-3 flex items-center justify-between gap-2">
+        <div class="h-3.5 w-20 rounded-sm bg-white/[0.08]"></div>
+        <div class="h-3.5 w-10 rounded-sm bg-yg-purple-400/20"></div>
+      </div>
+
+      <div class="mt-2 flex gap-1">
+        <div class="h-5 w-7 rounded-sm bg-white/[0.07]"></div>
+        <div class="h-5 w-7 rounded-sm bg-yg-purple-400/20"></div>
+        <div class="h-5 w-7 rounded-sm bg-white/[0.07]"></div>
+        <div class="h-5 w-7 rounded-sm bg-white/[0.07]"></div>
+      </div>
+
+      <div class="mt-3 h-9 rounded-md bg-yg-purple-400/25"></div>
+    </div>
+  </article>
+  <span class="sr-only">Loading merchandise...</span>
+</div>

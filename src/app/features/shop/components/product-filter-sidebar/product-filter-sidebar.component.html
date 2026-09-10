@@ -1,0 +1,95 @@
+<aside class="rounded-lg border border-white/[0.08] bg-white/[0.035] p-4 lg:self-start" aria-label="Product filters">
+  <div class="mb-4 flex items-center justify-between border-b border-white/[0.08] pb-4">
+    <h2 class="text-lg font-bold text-white">Filters</h2>
+    <button
+      type="button"
+      class="text-xs font-semibold text-yg-purple-200 underline-offset-2 transition hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400"
+      (click)="cleared.emit()">
+      Clear all
+    </button>
+  </div>
+
+  <div class="space-y-5">
+    <fieldset>
+      <legend class="mb-3 flex w-full items-center justify-between text-xs font-bold text-white">
+        Category
+        <lucide-icon name="chevron-up" [size]="14" aria-hidden="true"></lucide-icon>
+      </legend>
+      <div class="space-y-2">
+        <label *ngFor="let category of categories" class="flex min-h-6 items-center justify-between gap-3 text-xs text-yg-muted transition hover:text-white">
+          <span class="inline-flex items-center gap-2.5">
+            <input
+              type="checkbox"
+              class="h-3.5 w-3.5 rounded border-yg-border bg-yg-bg text-yg-purple-500 focus:ring-yg-purple-400"
+              [checked]="selectedCategory === category.value"
+              (change)="categorySelected.emit(category.value)">
+            <span>{{ category.label }}</span>
+          </span>
+          <span class="text-xs text-yg-muted/80">{{ category.count }}</span>
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset class="border-t border-white/[0.08] pt-5">
+      <legend class="mb-2 text-xs font-semibold text-white">Product Type</legend>
+      <label *ngFor="let productType of productTypes" class="flex min-h-7 items-center justify-between gap-3 text-xs text-yg-muted transition hover:text-white">
+        <span class="inline-flex items-center gap-2.5">
+          <input
+            type="checkbox"
+            class="h-3.5 w-3.5 rounded border-yg-border bg-yg-bg text-yg-purple-500 focus:ring-yg-purple-400"
+            [checked]="selectedProductTypes.includes(productType.value)"
+            (change)="productTypeToggled.emit(productType.value)">
+          <span>{{ productType.label }}</span>
+        </span>
+        <span class="text-xs text-yg-muted/80">{{ productType.count }}</span>
+      </label>
+    </fieldset>
+
+    <fieldset class="border-t border-white/[0.08] pt-5">
+      <legend class="mb-2 text-xs font-semibold text-white">Availability</legend>
+      <label *ngFor="let availability of availabilityOptions" class="flex min-h-7 items-center justify-between gap-3 text-xs text-yg-muted transition hover:text-white">
+        <span class="inline-flex items-center gap-2.5">
+          <input
+            type="checkbox"
+            class="h-3.5 w-3.5 rounded border-yg-border bg-yg-bg text-yg-purple-500 focus:ring-yg-purple-400"
+            [checked]="selectedAvailability.includes(availability.value)"
+            (change)="availabilityToggled.emit(availability.value)">
+          <span>{{ availability.label }}</span>
+        </span>
+        <span class="text-xs text-yg-muted/80">{{ availability.count }}</span>
+      </label>
+    </fieldset>
+
+    <fieldset class="border-t border-white/[0.08] pt-5">
+      <legend class="mb-3 text-xs font-semibold text-white">Price Range (MMK)</legend>
+      <input
+        type="range"
+        min="0"
+        [max]="maxPriceLimit"
+        step="10000"
+        [value]="maxPrice"
+        class="h-1.5 w-full accent-yg-purple-500"
+        aria-label="Maximum price"
+        (change)="maxPriceSelected.emit(+$any($event.target).value)">
+      <div class="mt-2 flex justify-between text-xs text-yg-muted">
+        <span>0</span>
+        <span>{{ maxPrice | number }}</span>
+      </div>
+    </fieldset>
+
+    <fieldset class="border-t border-white/[0.08] pt-5">
+      <legend class="mb-2 text-xs font-semibold text-white">Special</legend>
+      <label *ngFor="let option of specialOptions" class="flex min-h-7 items-center justify-between gap-3 text-xs text-yg-muted transition hover:text-white">
+        <span class="inline-flex items-center gap-2.5">
+          <input
+            type="checkbox"
+            class="h-3.5 w-3.5 rounded border-yg-border bg-yg-bg text-yg-purple-500 focus:ring-yg-purple-400"
+            [checked]="selectedSpecial.includes(option.value)"
+            (change)="specialToggled.emit(option.value)">
+          <span>{{ option.label }}</span>
+        </span>
+        <span class="text-xs text-yg-muted/80">{{ option.count }}</span>
+      </label>
+    </fieldset>
+  </div>
+</aside>

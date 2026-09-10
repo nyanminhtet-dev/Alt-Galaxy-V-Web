@@ -1,0 +1,59 @@
+<section class="px-4 pt-0 sm:px-6 lg:px-8">
+  <div class="relative mx-auto h-[31rem] max-w-[1720px] overflow-hidden rounded-b-lg border border-t-0 border-white/[0.06] bg-black shadow-[0_22px_68px_rgba(0,0,0,0.42)] sm:h-[27rem] lg:h-[20.5rem] xl:h-[22rem]">
+    <img
+      class="absolute inset-0 h-full w-full object-cover opacity-70"
+      [src]="slide.image"
+      [alt]="slide.imageAlt"
+      fetchpriority="high">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/10"></div>
+
+    <button
+      type="button"
+      class="absolute left-4 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/[0.04] text-white/80 backdrop-blur transition hover:border-yg-purple-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 lg:inline-flex"
+      aria-label="Previous collection">
+      <lucide-icon class="rotate-180" name="chevron-right" [size]="22" aria-hidden="true"></lucide-icon>
+    </button>
+
+    <div class="relative z-10 flex h-full max-w-4xl flex-col justify-center px-5 py-8 sm:px-10 lg:ml-28 lg:px-7">
+      <p class="mb-2.5 text-[0.6875rem] font-semibold uppercase tracking-[0.38em] text-yg-purple-200">
+        {{ slide.collectionLabel }}
+      </p>
+      <h1 class="max-w-[26rem] text-4xl font-black uppercase leading-[0.88] text-white sm:text-5xl lg:text-[3.55rem]">
+        {{ slide.headline }}
+      </h1>
+      <p class="mt-3.5 max-w-sm text-sm font-medium leading-6 text-white/82">
+        {{ slide.description }}
+      </p>
+      <div class="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <button
+          type="button"
+          class="inline-flex min-h-10 w-fit items-center justify-center gap-2 rounded-full bg-gradient-to-r from-yg-purple-600 to-yg-purple-400 px-6 py-2.5 text-xs font-bold text-white shadow-glow transition hover:from-yg-purple-500 hover:to-yg-purple-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-300 focus-visible:ring-offset-2 focus-visible:ring-offset-yg-bg"
+          (click)="ctaSelected.emit()">
+          {{ slide.ctaLabel }}
+          <lucide-icon name="arrow-right" [size]="18" aria-hidden="true"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="absolute right-16 top-16 hidden max-w-48 text-[0.6875rem] font-medium uppercase leading-6 tracking-[0.38em] text-yg-muted xl:block">
+      Games<br>Music<br>Community<br>And beyond
+    </div>
+
+    <!-- <p class="absolute right-[22rem] top-[7.5rem] hidden rotate-[-11deg] font-serif text-5xl italic leading-tight text-yg-purple-200/90 xl:block">
+      More<br>Than<br>A Fandom
+    </p> -->
+
+    <button
+      type="button"
+      class="absolute right-4 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/[0.04] text-white/80 backdrop-blur transition hover:border-yg-purple-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 lg:inline-flex"
+      aria-label="Next collection">
+      <lucide-icon name="chevron-right" [size]="22" aria-hidden="true"></lucide-icon>
+    </button>
+
+    <div class="absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-2.5" aria-label="Current hero slide 1 of 3">
+      <span class="h-1.5 w-1.5 rounded-full bg-white"></span>
+      <span class="h-1.5 w-1.5 rounded-full bg-white/35"></span>
+      <span class="h-1.5 w-1.5 rounded-full bg-white/35"></span>
+    </div>
+  </div>
+</section>

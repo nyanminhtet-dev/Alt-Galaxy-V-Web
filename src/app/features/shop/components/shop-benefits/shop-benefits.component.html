@@ -1,0 +1,13 @@
+<section class="mx-auto max-w-[1720px] px-4 py-5 sm:px-6 lg:px-8" aria-label="Shop benefits">
+  <div class="grid gap-5 sm:grid-cols-3">
+    <article *ngFor="let benefit of benefits" class="flex items-center justify-center gap-3 border-white/[0.06] py-1.5 sm:border-r sm:last:border-r-0">
+      <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-yg-purple-300">
+        <lucide-icon [name]="benefit.iconName" [size]="26" aria-hidden="true"></lucide-icon>
+      </span>
+      <span>
+        <span class="block text-xs font-bold text-white">{{ benefit.title }}</span>
+        <span class="mt-0.5 block text-xs leading-5 text-yg-muted">{{ benefit.description }}</span>
+      </span>
+    </article>
+  </div>
+</section>

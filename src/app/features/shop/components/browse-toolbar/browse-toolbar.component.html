@@ -1,0 +1,17 @@
+<div class="flex items-center justify-between gap-3">
+  <p class="text-xs text-yg-muted">{{ productCount }} products</p>
+  <label class="flex min-h-10 items-center gap-2 rounded-md border border-white/[0.08] bg-white/[0.035] px-3 text-xs text-yg-muted">
+    <span>Sort by</span>
+    <select
+      #sortSelect
+      class="bg-transparent text-xs font-bold text-white outline-none focus:outline-none"
+      [value]="sort"
+      (change)="sortSelected.emit(sortSelect.value)">
+      <option value="featured">Featured</option>
+      <option value="newest">Newest</option>
+      <option value="popular">Popular</option>
+      <option value="price-low">Price: Low to High</option>
+      <option value="price-high">Price: High to Low</option>
+    </select>
+  </label>
+</div>

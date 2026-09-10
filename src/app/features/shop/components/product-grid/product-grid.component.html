@@ -1,0 +1,15 @@
+<div *ngIf="products.length > 0; else emptyProducts" class="grid grid-cols-[repeat(auto-fit,minmax(10.5rem,1fr))] gap-3">
+  <app-product-card
+    *ngFor="let product of products"
+    [product]="product"
+    (addToCart)="addToCart.emit($event)"
+    (wishlist)="wishlist.emit($event)">
+  </app-product-card>
+</div>
+
+<ng-template #emptyProducts>
+  <div class="rounded-lg border border-dashed border-yg-border bg-yg-surface p-10 text-center">
+    <p class="text-base font-semibold text-white">No merchandise found</p>
+    <p class="mt-2 text-sm text-yg-muted">Try another category or filter combination.</p>
+  </div>
+</ng-template>
