@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { ShopCartService } from '../../../features/shop/services/shop-cart.service';
 
 interface NavigationItem {
   label: string;
@@ -11,6 +14,8 @@ interface NavigationItem {
   templateUrl: './navigation.component.html'
 })
 export class NavigationComponent {
+  protected readonly cartItemCount$: Observable<number> = this.shopCartService.itemCount$;
+
   protected readonly navigationItems: NavigationItem[] = [
     { label: 'Home', route: '/', exact: true },
     { label: 'Shop', route: '/shop', exact: false },
@@ -20,6 +25,8 @@ export class NavigationComponent {
   ];
 
   protected mobileMenuOpen = false;
+
+  constructor(private readonly shopCartService: ShopCartService) { }
 
   protected toggleMobileMenu(): void {
     this.mobileMenuOpen = !this.mobileMenuOpen;

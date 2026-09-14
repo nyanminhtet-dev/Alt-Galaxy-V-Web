@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, switchMap, takeUntil } from 'rxjs';
 
 import { ProductVariant, ShopCatalogProduct, ShopProduct } from '../../models/shop-home.model';
+import { ShopCartService } from '../../services/shop-cart.service';
 import { ShopProductService } from '../../services/shop-product.service';
 
 type ProductDetailTab = 'details' | 'delivery' | 'information';
@@ -52,7 +53,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly router: Router,
-    private readonly shopProductService: ShopProductService
+    private readonly shopProductService: ShopProductService,
+    private readonly shopCartService: ShopCartService
   ) { }
 
   ngOnInit(): void {
@@ -241,7 +243,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       return;
     }
 
-    console.info('Add to cart requested', this.product.id, this.selectedVariant.id, this.quantity);
+    this.shopCartService.addItem({
+      product: this.product,
+      variant: this.selectedVariant,
+      quantity: this.quantity
+    });
   }
 
   protected wishlist(): void {
@@ -257,7 +263,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   protected handleRelatedAddToCart(event: { product: ShopProduct; variant: ProductVariant }): void {
-    console.info('Add to cart requested', event.product.id, event.variant.id);
+    this.shopCartService.addItem({
+      product: event.product,
+      variant: event.variant,
+      quantity: 1
+    });
   }
 
   protected handleRelatedWishlist(product: ShopProduct): void {

@@ -1,0 +1,36 @@
+<aside class="rounded-lg border border-white/[0.08] bg-white/[0.035] p-4 lg:sticky lg:top-24" aria-labelledby="cart-summary-title">
+  <h2 id="cart-summary-title" class="text-sm font-black text-white">Order Summary</h2>
+
+  <dl class="mt-4 space-y-3 text-xs">
+    <div class="flex items-center justify-between gap-4">
+      <dt class="text-yg-muted">Subtotal</dt>
+      <dd class="font-semibold text-white">MMK {{ formatPrice(totals.subtotalMMK) }}</dd>
+    </div>
+    <div class="flex items-center justify-between gap-4">
+      <dt class="text-yg-muted">Shipping</dt>
+      <dd class="text-right font-semibold text-white/80">Calculated at checkout</dd>
+    </div>
+  </dl>
+
+  <div class="my-4 border-t border-white/[0.08]"></div>
+
+  <div class="flex items-start justify-between gap-4">
+    <p class="text-sm font-bold text-white">Total</p>
+    <p class="text-base font-black text-white">MMK {{ formatPrice(totals.totalMMK) }}</p>
+  </div>
+
+  <p *ngIf="totals.hasUnavailableItems" class="mt-3 rounded-md border border-amber-300/20 bg-amber-300/10 px-3 py-2 text-xs text-amber-200">
+    Remove unavailable items before checkout.
+  </p>
+
+  <button
+    type="button"
+    class="mt-4 inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-md bg-yg-elevated px-4 text-xs font-bold text-yg-muted transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 disabled:cursor-not-allowed"
+    disabled
+    aria-disabled="true"
+    (click)="checkout.emit()">
+    Proceed to Checkout
+    <lucide-icon name="arrow-right" [size]="15" aria-hidden="true"></lucide-icon>
+  </button>
+  <p class="mt-2 text-center text-[0.6875rem] text-yg-muted">Checkout will be added in a later milestone.</p>
+</aside>

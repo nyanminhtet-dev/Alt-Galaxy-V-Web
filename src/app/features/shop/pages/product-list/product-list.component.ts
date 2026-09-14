@@ -4,6 +4,7 @@ import { Subject, takeUntil } from 'rxjs';
 
 import { ProductFilterOption } from '../../components/product-filter-sidebar/product-filter-sidebar.component';
 import { ProductVariant, ShopCatalogProduct, ShopProduct } from '../../models/shop-home.model';
+import { ShopCartService } from '../../services/shop-cart.service';
 import { ShopProductService } from '../../services/shop-product.service';
 
 type CatalogSort = 'featured' | 'newest' | 'popular' | 'price-low' | 'price-high';
@@ -66,6 +67,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly router: Router,
+    private readonly shopCartService: ShopCartService,
     private readonly shopProductService: ShopProductService
   ) { }
 
@@ -191,7 +193,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   protected handleAddToCart(event: { product: ShopProduct; variant: ProductVariant }): void {
-    console.info('Add to cart requested', event.product.id, event.variant.id);
+    this.shopCartService.addItem({
+      product: event.product,
+      variant: event.variant,
+      quantity: 1
+    });
   }
 
   protected handleWishlist(product: ShopProduct): void {

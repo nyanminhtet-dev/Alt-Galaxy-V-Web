@@ -1,0 +1,54 @@
+<div class="bg-yg-bg">
+  <section class="mx-auto max-w-[1180px] px-4 py-5 sm:px-6 lg:px-8" aria-labelledby="cart-title">
+    <nav class="text-[0.6875rem] text-yg-muted" aria-label="Breadcrumb">
+      <ol class="flex flex-wrap items-center gap-2">
+        <li>
+          <a routerLink="/shop" class="transition hover:text-yg-purple-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400">Shop</a>
+        </li>
+        <li aria-hidden="true">›</li>
+        <li class="text-white" aria-current="page">Cart</li>
+      </ol>
+    </nav>
+
+    <ng-container *ngIf="items$ | async as items">
+      <ng-container *ngIf="totals$ | async as totals">
+        <div class="mt-5 flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h1 id="cart-title" class="text-2xl font-black leading-tight text-white">Your Cart</h1>
+            <p class="mt-1 text-sm text-yg-muted">{{ totals.itemCount }} {{ totals.itemCount === 1 ? 'item' : 'items' }}</p>
+          </div>
+
+          <button
+            *ngIf="items.length > 0"
+            type="button"
+            class="inline-flex min-h-9 items-center justify-center gap-2 rounded-md border border-white/[0.08] bg-white/[0.035] px-3 text-xs font-semibold text-yg-muted transition hover:border-red-300/30 hover:text-red-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400"
+            (click)="clearCart()">
+            <lucide-icon name="trash-2" [size]="14" aria-hidden="true"></lucide-icon>
+            Clear Cart
+          </button>
+        </div>
+
+        <app-cart-empty-state *ngIf="items.length === 0" class="mt-8 block"></app-cart-empty-state>
+
+        <div *ngIf="items.length > 0" class="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-start">
+          <div class="space-y-3">
+            <app-cart-item
+              *ngFor="let item of items"
+              [item]="item"
+              (increment)="incrementQuantity($event)"
+              (decrement)="decrementQuantity($event)"
+              (remove)="removeItem($event)">
+            </app-cart-item>
+          </div>
+
+          <app-cart-summary
+            [totals]="totals"
+            (checkout)="handleCheckoutIntent()">
+          </app-cart-summary>
+        </div>
+      </ng-container>
+    </ng-container>
+  </section>
+
+  <app-shop-footer></app-shop-footer>
+</div>

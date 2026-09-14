@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 
 import { ProductVariant, ShopCategory, ShopCollection, ShopHeroSlide, ShopProduct } from '../../models/shop-home.model';
+import { ShopCartService } from '../../services/shop-cart.service';
 
 @Component({
   selector: 'app-shop-home',
   templateUrl: './shop-home.component.html'
 })
 export class ShopHomeComponent {
+  constructor(private readonly shopCartService: ShopCartService) { }
+
   protected readonly heroSlide: ShopHeroSlide = {
     id: 'blackpink-tour-drop',
     collectionLabel: '2026 official collection',
@@ -191,7 +194,11 @@ export class ShopHomeComponent {
   }
 
   protected handleAddToCart(event: { product: ShopProduct; variant: ProductVariant }): void {
-    console.info('Add to cart requested', event.product.id, event.variant.id);
+    this.shopCartService.addItem({
+      product: event.product,
+      variant: event.variant,
+      quantity: 1
+    });
   }
 
   protected handleWishlist(product: ShopProduct): void {

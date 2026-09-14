@@ -4,11 +4,15 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { NavigationComponent } from './layout/navigation/navigation.component';
+import { ProfileMenuComponent } from './layout/navigation/profile-menu/profile-menu.component';
+import { ShopMenuComponent } from './layout/navigation/shop-menu/shop-menu.component';
 
 @NgModule({
   declarations: [
     MainLayoutComponent,
-    NavigationComponent
+    NavigationComponent,
+    ProfileMenuComponent,
+    ShopMenuComponent
   ],
   imports: [
     RouterModule,

@@ -1,0 +1,80 @@
+<div
+  class="relative"
+  [class.w-full]="mobile"
+  (click)="$event.stopPropagation()"
+  (mouseenter)="openMenu()"
+  (mouseleave)="scheduleClose()">
+  <button
+    type="button"
+    class="transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-yg-bg"
+    [ngClass]="triggerClasses"
+    aria-label="Open Shop menu"
+    [attr.aria-controls]="menuId"
+    [attr.aria-expanded]="isOpen"
+    (click)="toggleMenu()"
+    (focus)="openMenu()">
+    <span>Shop</span>
+    <lucide-icon
+      *ngIf="mobile"
+      name="chevron-up"
+      class="transition"
+      [class.rotate-180]="!isOpen"
+      [size]="16"
+      aria-hidden="true"></lucide-icon>
+  </button>
+
+  <div
+    [id]="menuId"
+    [ngClass]="panelClasses"
+    [class.hidden]="mobile && !isOpen"
+    [class.invisible]="!mobile && !isOpen"
+    [class.pointer-events-none]="!mobile && !isOpen"
+    [class.translate-y-1]="!mobile && !isOpen"
+    [class.opacity-0]="!mobile && !isOpen"
+    [class.translate-y-0]="!mobile && isOpen"
+    [class.opacity-100]="!mobile && isOpen"
+    [attr.aria-hidden]="!isOpen"
+    role="menu"
+    aria-label="Shop menu"
+    (mouseenter)="cancelClose()"
+    (mouseleave)="scheduleClose()">
+    <ng-container *ngFor="let item of menuItems">
+      <a
+        *ngIf="!item.disabled; else unavailableItem"
+        role="menuitem"
+        class="group flex min-h-[3rem] w-full items-center gap-3 rounded-md px-3 py-2 text-left transition hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#111116]"
+        [attr.tabindex]="isOpen ? null : -1"
+        [routerLink]="item.route"
+        [queryParams]="item.queryParams"
+        routerLinkActive="bg-yg-purple-500/10"
+        [routerLinkActiveOptions]="{ exact: item.queryParams ? true : false }"
+        (click)="handleNavigationItem()">
+        <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-white/[0.06] bg-white/[0.04] text-yg-purple-200 transition group-hover:border-yg-purple-400/40 group-hover:bg-yg-purple-500/10 group-hover:text-yg-purple-100">
+          <lucide-icon [name]="item.iconName" [size]="16" aria-hidden="true"></lucide-icon>
+        </span>
+        <span class="min-w-0">
+          <span class="block text-sm font-semibold text-white/90 transition group-hover:text-white">{{ item.label }}</span>
+          <span class="mt-0.5 block text-xs text-yg-muted">{{ item.description }}</span>
+        </span>
+      </a>
+    </ng-container>
+
+    <ng-template #unavailableItem>
+      <button
+        type="button"
+        role="menuitem"
+        class="group flex min-h-[3rem] w-full cursor-default items-center gap-3 rounded-md px-3 py-2 text-left text-white/70 transition hover:bg-white/[0.035] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#111116]"
+        [attr.tabindex]="isOpen ? null : -1"
+        aria-disabled="true"
+        (click)="handleUnavailableItem()">
+        <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-white/[0.06] bg-white/[0.04] text-yg-muted">
+          <lucide-icon name="layers" [size]="16" aria-hidden="true"></lucide-icon>
+        </span>
+        <span class="min-w-0">
+          <span class="block text-sm font-semibold text-white/80">Collections</span>
+          <span class="mt-0.5 block text-xs text-yg-muted">Curated by YG</span>
+        </span>
+      </button>
+    </ng-template>
+  </div>
+</div>

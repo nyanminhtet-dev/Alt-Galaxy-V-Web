@@ -1,0 +1,13 @@
+<section class="mx-auto max-w-md rounded-lg border border-white/[0.08] bg-white/[0.035] px-5 py-8 text-center" aria-labelledby="empty-cart-title">
+  <div class="mx-auto flex h-11 w-11 items-center justify-center rounded-md border border-yg-purple-400/25 bg-yg-purple-500/10 text-yg-purple-200">
+    <lucide-icon name="shopping-cart" [size]="21" aria-hidden="true"></lucide-icon>
+  </div>
+  <h2 id="empty-cart-title" class="mt-4 text-lg font-black text-white">Your Cart is Empty</h2>
+  <p class="mt-2 text-sm leading-6 text-yg-muted">You haven't added any merchandise yet.</p>
+  <a
+    routerLink="/shop/products"
+    class="mt-5 inline-flex min-h-10 items-center justify-center gap-2 rounded-md bg-yg-purple-600 px-4 text-xs font-bold text-white shadow-glow-sm transition hover:bg-yg-purple-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400">
+    Continue Shopping
+    <lucide-icon name="arrow-right" [size]="15" aria-hidden="true"></lucide-icon>
+  </a>
+</section>

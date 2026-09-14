@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../../shared/shared.module';
 import { BrowseToolbarComponent } from './components/browse-toolbar/browse-toolbar.component';
+import { CartEmptyStateComponent } from './components/cart-empty-state/cart-empty-state.component';
+import { CartItemComponent } from './components/cart-item/cart-item.component';
+import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
 import { CategoryCardComponent } from './components/category-card/category-card.component';
 import { CollectionCardComponent } from './components/collection-card/collection-card.component';
 import { FeaturedCollectionsComponent } from './components/featured-collections/featured-collections.component';
@@ -16,6 +19,7 @@ import { ShopExploreBannerComponent } from './components/shop-explore-banner/sho
 import { ShopFooterComponent } from './components/shop-footer/shop-footer.component';
 import { ShopHeroComponent } from './components/shop-hero/shop-hero.component';
 import { TrendingNowComponent } from './components/trending-now/trending-now.component';
+import { CartComponent } from './pages/cart/cart.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { ShopHomeComponent } from './pages/shop-home/shop-home.component';
@@ -26,6 +30,7 @@ import { ShopRoutingModule } from './shop-routing.module';
 @NgModule({
   declarations: [
     ShopHomeComponent,
+    CartComponent,
     ProductListComponent,
     ProductDetailComponent,
     ShopHeroComponent,
@@ -42,6 +47,9 @@ import { ShopRoutingModule } from './shop-routing.module';
     ProductGridComponent,
     ProductGridSkeletonComponent,
     ProductCardComponent,
+    CartItemComponent,
+    CartSummaryComponent,
+    CartEmptyStateComponent,
     ShopBenefitsComponent
   ],
   imports: [

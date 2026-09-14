@@ -17,14 +17,19 @@
     </a>
 
     <div class="hidden items-center gap-6 px-20 md:flex">
-      <a
-        *ngFor="let item of navigationItems"
-        [routerLink]="item.route"
-        [routerLinkActiveOptions]="{ exact: item.exact === true }"
-        routerLinkActive="text-yg-purple-300 after:scale-x-100"
-        class="relative py-5 text-sm font-medium text-white/85 transition  hover:text-yg-purple-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-yg-bg">
-        {{ item.label }}
-      </a>
+      <ng-container *ngFor="let item of navigationItems">
+        <app-shop-menu *ngIf="item.label === 'Shop'; else desktopNavigationLink"></app-shop-menu>
+
+        <ng-template #desktopNavigationLink>
+          <a
+            [routerLink]="item.route"
+            [routerLinkActiveOptions]="{ exact: item.exact === true }"
+            routerLinkActive="text-yg-purple-300 after:scale-x-100"
+            class="relative py-5 text-sm font-medium text-white/85 transition  hover:text-yg-purple-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-yg-bg">
+            {{ item.label }}
+          </a>
+        </ng-template>
+      </ng-container>
     </div>
 
     <div class="hidden min-w-0 flex-1 items-center justify-end gap-3 md:flex">
@@ -47,19 +52,20 @@
       </div>
 
       <a
-        routerLink="/shop"
+        routerLink="/shop/cart"
         class="relative inline-flex h-9 w-9 items-center justify-center rounded-full text-white transition hover:text-yg-purple-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-yg-bg"
         aria-label="Open cart">
         <lucide-icon name="shopping-cart" [size]="21" aria-hidden="true"></lucide-icon>
-        <span class="absolute -right-0.5 -top-0.5 flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-yg-purple-400 px-1 text-[0.5625rem] font-bold text-white">3</span>
+        <span
+          *ngIf="cartItemCount$ | async as cartItemCount"
+          class="absolute -right-0.5 -top-0.5 flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-yg-purple-400 px-1 text-[0.5625rem] font-bold text-white"
+          [class.hidden]="cartItemCount === 0"
+          [attr.aria-label]="cartItemCount + ' items in cart'">
+          {{ cartItemCount }}
+        </span>
       </a>
 
-      <button
-        type="button"
-        class="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-white/[0.08] bg-yg-elevated text-yg-muted transition hover:border-yg-purple-400/50 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-yg-bg"
-        aria-label="Account">
-        <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=96&q=80" alt="Profile avatar">
-      </button>
+      <app-profile-menu></app-profile-menu>
     </div>
 
     <button
@@ -77,14 +83,22 @@
     *ngIf="mobileMenuOpen"
     id="mobile-navigation"
     class="border-t border-yg-border bg-yg-bg px-5 py-3 md:hidden">
-    <a
-      *ngFor="let item of navigationItems"
-      [routerLink]="item.route"
-      [routerLinkActiveOptions]="{ exact: item.exact === true }"
-      routerLinkActive="border-yg-purple-400/50 bg-yg-surface text-white"
-      class="block rounded-md border border-transparent px-3 py-2 text-sm font-medium text-yg-muted transition hover:bg-yg-elevated hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400"
-      (click)="closeMobileMenu()">
-      {{ item.label }}
-    </a>
+    <ng-container *ngFor="let item of navigationItems">
+      <app-shop-menu
+        *ngIf="item.label === 'Shop'; else mobileNavigationLink"
+        [mobile]="true"
+        (itemSelected)="closeMobileMenu()"></app-shop-menu>
+
+      <ng-template #mobileNavigationLink>
+        <a
+          [routerLink]="item.route"
+          [routerLinkActiveOptions]="{ exact: item.exact === true }"
+          routerLinkActive="border-yg-purple-400/50 bg-yg-surface text-white"
+          class="block rounded-md border border-transparent px-3 py-2 text-sm font-medium text-yg-muted transition hover:bg-yg-elevated hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400"
+          (click)="closeMobileMenu()">
+          {{ item.label }}
+        </a>
+      </ng-template>
+    </ng-container>
   </div>
 </header>
