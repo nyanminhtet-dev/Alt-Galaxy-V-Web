@@ -12,6 +12,7 @@ export class ProductCardComponent {
   @Output() addToCart = new EventEmitter<{ product: ShopProduct; variant: ProductVariant }>();
   @Output() wishlist = new EventEmitter<ShopProduct>();
   @Output() variantSelected = new EventEmitter<{ product: ShopProduct; variant: ProductVariant }>();
+  @Output() viewProduct = new EventEmitter<ShopProduct>();
 
   protected selectedVariant?: ProductVariant;
 
@@ -40,6 +41,27 @@ export class ProductCardComponent {
 
     this.selectedVariant = variant;
     this.variantSelected.emit({ product: this.product, variant });
+  }
+
+  protected get canViewProduct(): boolean {
+    return this.viewProduct.observed;
+  }
+
+  protected requestViewProduct(): void {
+    if (!this.canViewProduct) {
+      return;
+    }
+
+    this.viewProduct.emit(this.product);
+  }
+
+  protected handleCardSpace(event: Event): void {
+    if (!this.canViewProduct) {
+      return;
+    }
+
+    event.preventDefault();
+    this.requestViewProduct();
   }
 
   protected requestAddToCart(): void {

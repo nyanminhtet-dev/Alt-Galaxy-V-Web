@@ -11,4 +11,8 @@ export class ShopProductService {
   getProducts(): Observable<ShopCatalogProduct[]> {
     return this.mockProductApi.getProducts();
   }
+
+  getProductBySlug(slug: string): Observable<ShopCatalogProduct | null> {
+    return this.mockProductApi.getProductBySlug(slug);
+  }
 }

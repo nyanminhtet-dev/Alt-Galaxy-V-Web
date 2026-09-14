@@ -11,4 +11,5 @@ export class ProductGridComponent {
 
   @Output() addToCart = new EventEmitter<{ product: ShopProduct; variant: ProductVariant }>();
   @Output() wishlist = new EventEmitter<ShopProduct>();
+  @Output() viewProduct = new EventEmitter<ShopProduct>();
 }

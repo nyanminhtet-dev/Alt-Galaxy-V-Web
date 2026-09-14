@@ -1,7 +1,8 @@
 <article class="group h-full overflow-hidden rounded-lg border border-white/[0.08] bg-yg-surface transition hover:border-yg-purple-400/50 hover:shadow-glow-sm">
   <button
     type="button"
-    class="relative block h-36 w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-yg-bg"
+    class="relative block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-yg-bg"
+    [ngClass]="featured ? 'min-h-[24rem] md:min-h-[30rem]' : 'min-h-[15.5rem] md:min-h-[14.25rem]'"
     (click)="collectionSelected.emit(collection)">
     <span class="absolute inset-0 block overflow-hidden">
       <img
@@ -9,15 +10,37 @@
         [src]="collection.image"
         [alt]="collection.imageAlt"
         loading="lazy">
-      <span class="absolute inset-0 bg-gradient-to-r from-black/88 via-black/38 to-black/5"></span>
-    </span>
-    <span class="relative z-10 flex h-full w-full items-start justify-between gap-3 p-4">
-      <span>
-        <span class="block text-sm font-bold text-white">{{ collection.name }}</span>
-        <span class="mt-1.5 block text-xs text-white/78">{{ collection.productCount }} Products</span>
+      <span
+        class="absolute inset-0"
+        [ngClass]="featured
+          ? 'bg-gradient-to-tr from-black/92 via-black/42 to-black/5'
+          : 'bg-gradient-to-r from-black/88 via-black/46 to-black/8'">
       </span>
-      <span class="absolute bottom-3 right-3 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/[0.05] text-white/80 backdrop-blur transition group-hover:border-yg-purple-400/60 group-hover:bg-yg-purple-500 group-hover:text-white">
-        <lucide-icon name="arrow-right" [size]="15" aria-hidden="true"></lucide-icon>
+    </span>
+    <span
+      class="relative z-10 flex min-h-[inherit] w-full flex-col"
+      [ngClass]="featured ? 'justify-end p-5' : 'justify-end p-5'">
+      <span class="max-w-md" [ngClass]="featured ? 'pb-8 sm:pb-4' : 'pb-8 pr-20 sm:pb-4'">
+        <span
+          class="block font-black uppercase leading-tight text-white"
+          [ngClass]="featured ? 'text-lg sm:text-xl' : 'text-sm sm:text-base'">
+          {{ collection.name }}
+        </span>
+        <span
+          class=" block max-w-sm text-white/76"
+          [ngClass]="featured ? 'text-xs leading-5' : 'text-[0.6875rem] leading-4'">
+          {{ description }}
+        </span>
+        <span
+          class="mt-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/20 px-3 py-1.5 text-[0.6875rem] font-bold text-white backdrop-blur transition group-hover:border-yg-purple-400/60 group-hover:text-yg-purple-200">
+          Explore Collection
+          <lucide-icon name="arrow-right" [size]="13" aria-hidden="true"></lucide-icon>
+        </span>
+      </span>
+
+      <span class="absolute bottom-4 right-4 text-right sm:bottom-5 sm:right-5">
+        <span class="block text-sm font-black text-white sm:text-base">{{ collection.productCount }}</span>
+        <span class="block text-[0.5625rem] font-bold leading-none text-white/62">Products</span>
       </span>
     </span>
   </button>

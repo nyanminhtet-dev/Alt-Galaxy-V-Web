@@ -44,10 +44,13 @@ function product(
 ): ShopCatalogProduct {
   return {
     id,
+    slug: id,
     title,
     category: categoryLabels[category],
     productType,
+    description: `Official YG Fandom ${productType.toLowerCase()} designed for fans who want a clean, premium piece from the current shop collection.`,
     image,
+    images: [image],
     imageAlt: title,
     displayPriceMMK,
     featherCost,

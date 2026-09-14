@@ -9,7 +9,7 @@
 
     <div class="relative mx-auto flex min-h-44 max-w-[1720px] flex-col justify-center px-4 py-8 sm:px-6 lg:px-8">
       <p class="text-xs font-bold uppercase tracking-[0.45em] text-yg-purple-200">YG Fandom Shop</p>
-      <h1 id="catalog-title" class="mt-3 text-4xl font-black uppercase leading-none tracking-normal text-white sm:text-5xl lg:text-6xl">All Merchandise</h1>
+      <h1 id="catalog-title" class="mt-3 text-4xl font-black uppercase leading-none tracking-normal text-white sm:text-5xl lg:text-4xl">All Merchandise</h1>
       <p class="mt-3 text-base text-yg-muted sm:text-lg">Find your next YG Fandom piece.</p>
     </div>
   </section>
@@ -73,19 +73,19 @@
         </a>
 
         <form class="flex flex-col gap-3 md:flex-row" (submit)="$event.preventDefault(); updateSearch(searchInput.value)" role="search">
-          <label class="relative min-h-12 flex-1">
+          <label class="relative min-h-10 flex-1">
             <span class="sr-only">Search merchandise</span>
-            <lucide-icon class="absolute left-2 top-1/2 -translate-y-1/2 text-yg-muted" name="search" [size]="18" aria-hidden="true"></lucide-icon>
+            <!-- <lucide-icon class="absolute left-2 top-1/2 -translate-y-1/2 text-yg-muted" name="search" [size]="18" aria-hidden="true"></lucide-icon> -->
             <input
               #searchInput
-              class="h-12 w-full rounded-lg border border-white/[0.08] bg-white/[0.035] pl-11 pr-4 text-sm text-white placeholder:text-yg-muted focus:border-yg-purple-400 focus:outline-none focus:ring-2 focus:ring-yg-purple-400/30"
+              class="h-10 w-full rounded-lg border border-white/[0.08] bg-white/[0.035] pl-11 pr-4 text-sm text-white placeholder:text-yg-muted focus:border-yg-purple-400 focus:outline-none focus:ring-2 focus:ring-yg-purple-400/30"
               type="search"
               [value]="query.search"
               placeholder="Search merchandise, collections, or keywords...">
           </label>
           <button
             type="submit"
-            class="inline-flex h-12 items-center justify-center rounded-lg bg-gradient-to-r from-yg-purple-600 to-yg-purple-400 px-7 text-sm font-bold text-white shadow-glow-sm transition hover:from-yg-purple-500 hover:to-yg-purple-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400">
+            class="inline-flex h-10 items-center justify-center rounded-lg bg-yg-purple-600 px-7 text-sm font-bold text-white shadow-glow-sm transition hover:from-yg-purple-500 hover:to-yg-purple-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400">
             Search
           </button>
         </form>
@@ -100,7 +100,7 @@
               role="tab"
               class="min-h-9 shrink-0 rounded-md border px-5 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400"
               [ngClass]="{
-                'border-yg-purple-400 bg-gradient-to-r from-yg-purple-600 to-yg-purple-400 text-white shadow-glow-sm': query.category === category.value,
+                'border-yg-purple-400 bg-yg-purple-600 text-white shadow-glow-sm': query.category === category.value,
                 'border-transparent bg-white/[0.055] text-yg-muted hover:bg-yg-elevated hover:text-white': query.category !== category.value
               }"
               [attr.aria-selected]="query.category === category.value"
@@ -132,7 +132,7 @@
           </p>
           <button
             type="button"
-            class="mt-5 inline-flex min-h-10 items-center justify-center rounded-md bg-gradient-to-r from-yg-purple-600 to-yg-purple-400 px-5 text-xs font-bold text-white shadow-glow-sm transition hover:from-yg-purple-500 hover:to-yg-purple-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400"
+            class="mt-5 inline-flex min-h-10 items-center justify-center rounded-md bg-yg-purple-600 px-5 text-xs font-bold text-white shadow-glow-sm transition hover:from-yg-purple-500 hover:to-yg-purple-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400"
             (click)="retryLoadProducts()">
             Try Again
           </button>
@@ -174,7 +174,8 @@
           *ngIf="showProducts"
           [products]="pagedProducts"
           (addToCart)="handleAddToCart($event)"
-          (wishlist)="handleWishlist($event)">
+          (wishlist)="handleWishlist($event)"
+          (viewProduct)="viewProduct($event)">
         </app-product-grid>
 
         <div *ngIf="showProducts" class="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -193,7 +194,7 @@
               type="button"
               class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400"
               [ngClass]="{
-                'bg-gradient-to-r from-yg-purple-600 to-yg-purple-400 text-white shadow-glow-sm': currentPage === page,
+                'bg-yg-purple-600 text-white shadow-glow-sm': currentPage === page,
                 'bg-white/[0.035] text-white hover:bg-white/[0.08]': currentPage !== page
               }"
               [attr.aria-current]="currentPage === page ? 'page' : null"

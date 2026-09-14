@@ -198,6 +198,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
     console.info('Wishlist requested', product.id);
   }
 
+  protected viewProduct(product: ShopProduct): void {
+    this.router.navigate(['/shop/products', product.slug ?? product.id]);
+  }
+
   private loadProducts(): void {
     this.loading = true;
     this.loadError = false;

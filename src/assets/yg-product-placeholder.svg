@@ -1,0 +1,10 @@
+<svg width="900" height="900" viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="900" fill="#07070B"/>
+  <rect x="72" y="72" width="756" height="756" rx="42" fill="#11111A" stroke="#2A2937" stroke-width="2"/>
+  <circle cx="450" cy="382" r="178" fill="#181823"/>
+  <path d="M304 386L377 292H438L384 360H441L374 456H314L366 386H304Z" fill="#F6F4FF"/>
+  <path d="M461 292H528L596 456H529L515 418H457L431 456H364L461 292ZM479 380H502L491 350L479 380Z" fill="#9C68FF"/>
+  <rect x="301" y="600" width="298" height="18" rx="9" fill="#2A2937"/>
+  <rect x="342" y="634" width="216" height="12" rx="6" fill="#2A2937"/>
+  <text x="450" y="706" text-anchor="middle" fill="#AAA5BA" font-family="Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="5">YG FANDOM</text>
+</svg>

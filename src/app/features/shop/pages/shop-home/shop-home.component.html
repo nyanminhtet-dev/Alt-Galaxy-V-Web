@@ -1,15 +1,16 @@
 <div class="bg-yg-bg">
   <app-shop-hero [slide]="heroSlide" (ctaSelected)="handleHeroCta()"></app-shop-hero>
 
+    <app-shop-by-category
+    [categories]="categories"
+    (categorySelected)="handleCategorySelected($event)">
+  </app-shop-by-category>
+
   <app-featured-collections
     [collections]="collections"
     (collectionSelected)="handleCollectionSelected($event)">
   </app-featured-collections>
 
-  <app-shop-by-category
-    [categories]="categories"
-    (categorySelected)="handleCategorySelected($event)">
-  </app-shop-by-category>
 
   <app-trending-now
     [products]="trendingProducts"

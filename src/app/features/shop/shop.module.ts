@@ -16,6 +16,7 @@ import { ShopExploreBannerComponent } from './components/shop-explore-banner/sho
 import { ShopFooterComponent } from './components/shop-footer/shop-footer.component';
 import { ShopHeroComponent } from './components/shop-hero/shop-hero.component';
 import { TrendingNowComponent } from './components/trending-now/trending-now.component';
+import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { ShopHomeComponent } from './pages/shop-home/shop-home.component';
 import { MockProductApiService } from './services/mock-product-api.service';
@@ -26,6 +27,7 @@ import { ShopRoutingModule } from './shop-routing.module';
   declarations: [
     ShopHomeComponent,
     ProductListComponent,
+    ProductDetailComponent,
     ShopHeroComponent,
     FeaturedCollectionsComponent,
     CollectionCardComponent,

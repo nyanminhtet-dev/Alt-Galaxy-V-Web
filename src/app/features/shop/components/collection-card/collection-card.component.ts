@@ -8,6 +8,12 @@ import { ShopCollection } from '../../models/shop-home.model';
 })
 export class CollectionCardComponent {
   @Input() collection!: ShopCollection;
+  @Input() variant: 'featured' | 'secondary' = 'secondary';
+  @Input() description = '';
 
   @Output() collectionSelected = new EventEmitter<ShopCollection>();
+
+  protected get featured(): boolean {
+    return this.variant === 'featured';
+  }
 }

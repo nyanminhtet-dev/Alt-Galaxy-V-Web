@@ -1,0 +1,382 @@
+<div class="bg-yg-bg">
+  <section class="mx-auto max-w-[1420px] px-4 py-4 sm:px-6 lg:px-8" aria-label="Product detail">
+    <ng-container *ngIf="loading">
+      <div class="animate-pulse" role="status" aria-label="Loading product">
+        <div class="h-3 w-40 rounded-sm bg-white/[0.08]"></div>
+
+        <div class="mt-5 grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+          <div class="grid gap-3 sm:grid-cols-[4.5rem_1fr]">
+            <div class="hidden space-y-3 sm:block">
+              <div class="aspect-square rounded-lg bg-white/[0.07]"></div>
+              <div class="aspect-square rounded-lg bg-white/[0.07]"></div>
+              <div class="aspect-square rounded-lg bg-white/[0.07]"></div>
+              <div class="aspect-square rounded-lg bg-white/[0.07]"></div>
+            </div>
+            <div class="aspect-[1.08/1] rounded-lg border border-white/[0.08] bg-white/[0.06]"></div>
+          </div>
+
+          <div class="rounded-lg border border-white/[0.08] bg-white/[0.035] p-5">
+            <div class="h-3 w-20 rounded-sm bg-yg-purple-400/25"></div>
+            <div class="mt-3 h-9 w-4/5 rounded-sm bg-white/[0.1]"></div>
+            <div class="mt-3 h-4 w-full rounded-sm bg-white/[0.07]"></div>
+            <div class="mt-2 h-4 w-3/4 rounded-sm bg-white/[0.07]"></div>
+            <div class="mt-5 h-16 rounded-md bg-white/[0.07]"></div>
+            <div class="mt-5 h-9 w-56 rounded-sm bg-white/[0.07]"></div>
+            <div class="mt-4 h-11 rounded-md bg-yg-purple-400/25"></div>
+          </div>
+        </div>
+
+        <div class="mt-8 h-56 rounded-lg border border-white/[0.08] bg-white/[0.035]"></div>
+        <span class="sr-only">Loading product...</span>
+      </div>
+    </ng-container>
+
+    <div
+      *ngIf="!loading && loadError"
+      class="mx-auto max-w-xl rounded-xl border border-red-400/25 bg-red-950/20 px-6 py-10 text-center"
+      role="alert"
+      aria-live="assertive">
+      <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-red-300/25 bg-red-400/10 text-red-200">
+        <lucide-icon name="alert-triangle" [size]="24" aria-hidden="true"></lucide-icon>
+      </div>
+      <h1 class="mt-5 text-2xl font-black text-white">We couldn't load this product</h1>
+      <p class="mt-3 text-sm leading-6 text-yg-muted">
+        Something went wrong while loading the merchandise. Please try again later.
+      </p>
+      <button
+        type="button"
+        class="mt-6 inline-flex min-h-11 items-center justify-center rounded-md bg-yg-purple-600 px-6 text-sm font-bold text-white shadow-glow-sm transition hover:bg-yg-purple-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400"
+        (click)="retryLoadProduct()">
+        Try Again
+      </button>
+    </div>
+
+    <div
+      *ngIf="!loading && !loadError && !product"
+      class="mx-auto max-w-xl rounded-xl border border-white/[0.08] bg-white/[0.035] px-6 py-10 text-center"
+      role="status">
+      <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-yg-purple-400/25 bg-yg-purple-500/10 text-yg-purple-200">
+        <lucide-icon name="shopping-bag" [size]="24" aria-hidden="true"></lucide-icon>
+      </div>
+      <h1 class="mt-5 text-2xl font-black text-white">Product not found</h1>
+      <p class="mt-3 text-sm leading-6 text-yg-muted">We couldn't find the merchandise you're looking for.</p>
+      <a
+        routerLink="/shop/products"
+        class="mt-6 inline-flex min-h-11 items-center justify-center rounded-md bg-yg-purple-600 px-6 text-sm font-bold text-white shadow-glow-sm transition hover:bg-yg-purple-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400">
+        Back to Shop
+      </a>
+    </div>
+
+    <ng-container *ngIf="!loading && !loadError && product">
+      <nav class="text-[0.6875rem] text-yg-muted" aria-label="Breadcrumb">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li>
+            <a routerLink="/shop" class="transition hover:text-yg-purple-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400">Shop</a>
+          </li>
+          <li aria-hidden="true">›</li>
+          <li>
+            <a routerLink="/shop/products" class="transition hover:text-yg-purple-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400">Products</a>
+          </li>
+          <li aria-hidden="true">›</li>
+          <li class="max-w-[16rem] truncate text-white" aria-current="page">{{ product.title }}</li>
+        </ol>
+      </nav>
+
+      <div class="mt-4 grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+        <div class="grid gap-3 sm:grid-cols-[4.5rem_1fr]">
+          <div class="order-2 flex gap-3 overflow-x-auto pb-1 sm:order-1 sm:flex-col sm:overflow-visible sm:pb-0">
+            <button
+              *ngFor="let image of galleryImages; let imageIndex = index"
+              type="button"
+              class="flex aspect-square h-16 shrink-0 items-center justify-center overflow-hidden rounded-md border bg-white/[0.025] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 sm:h-[4.5rem]"
+              [ngClass]="{
+                'border-yg-purple-400 shadow-glow-sm': selectedImageIndex === imageIndex,
+                'border-white/[0.08] hover:border-yg-purple-400/45': selectedImageIndex !== imageIndex
+              }"
+              [attr.aria-label]="'View image ' + (imageIndex + 1) + ' for ' + product.title"
+              [attr.aria-pressed]="selectedImageIndex === imageIndex"
+              (click)="selectImage(imageIndex)">
+              <img
+                class="relative z-10 block h-full w-full object-cover"
+                [src]="image"
+                [alt]="product.imageAlt"
+                loading="lazy"
+                (error)="handleProductImageError($event)">
+            </button>
+          </div>
+
+          <div class="relative order-1 overflow-hidden rounded-lg border border-white/[0.08] bg-white/[0.025] shadow-2xl sm:order-2">
+            <div class="flex aspect-[1.08/1] items-center justify-center bg-[radial-gradient(circle_at_42%_32%,rgba(124,60,255,0.34),transparent_34%),linear-gradient(145deg,rgba(255,255,255,0.035),rgba(7,7,11,0.98))] p-5 sm:p-7">
+              <img
+                class="relative z-10 block max-h-full max-w-full object-contain drop-shadow-2xl"
+                [src]="selectedImage || fallbackProductImage"
+                [alt]="product.imageAlt"
+                (error)="handleProductImageError($event)">
+            </div>
+
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/28 via-transparent to-transparent"></div>
+
+            <button
+              type="button"
+              class="absolute left-4 top-1/2 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-yg-bg/70 text-white backdrop-blur transition hover:border-yg-purple-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 disabled:cursor-not-allowed disabled:opacity-40"
+              [disabled]="selectedImageIndex === 0"
+              aria-label="Previous product image"
+              (click)="previousImage()">
+              <lucide-icon name="chevron-left" [size]="17" aria-hidden="true"></lucide-icon>
+            </button>
+            <button
+              type="button"
+              class="absolute right-4 top-1/2 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-yg-bg/70 text-white backdrop-blur transition hover:border-yg-purple-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 disabled:cursor-not-allowed disabled:opacity-40"
+              [disabled]="selectedImageIndex === galleryImages.length - 1"
+              aria-label="Next product image"
+              (click)="nextImage()">
+              <lucide-icon name="chevron-right" [size]="17" aria-hidden="true"></lucide-icon>
+            </button>
+
+            <button
+              type="button"
+              class="absolute bottom-4 right-4 inline-flex h-9 w-9 items-center justify-center rounded-md border border-white/10 bg-yg-bg/75 text-white backdrop-blur transition hover:border-yg-purple-400/50 hover:text-yg-purple-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400"
+              aria-label="Preview product image">
+              <lucide-icon name="search" [size]="15" aria-hidden="true"></lucide-icon>
+            </button>
+          </div>
+        </div>
+
+        <article class="self-start lg:pt-7">
+          <div class="flex items-start justify-between gap-4">
+            <p class="text-[0.6875rem] font-black uppercase tracking-[0.32em] text-yg-purple-200">{{ product.category }}</p>
+            <p class="hidden text-right text-[0.625rem] font-bold uppercase tracking-[0.18em] text-yg-muted sm:block">
+              SKU {{ product.id | uppercase }}
+            </p>
+          </div>
+
+          <h1 class="mt-2 text-2xl font-black leading-tight text-white sm:text-3xl lg:text-4xl">{{ product.title }}</h1>
+          <p *ngIf="product.description" class="mt-2 max-w-2xl text-sm leading-6 text-yg-muted">{{ product.description }}</p>
+          <p class="mt-1.5 text-xs text-yg-muted">Released <span class="text-white/80">Oct 15, 2024</span></p>
+
+          <div class="mt-4 grid overflow-hidden rounded-lg border border-white/[0.08] bg-white/[0.035] sm:grid-cols-2">
+            <div class="flex items-center gap-3 border-b border-white/[0.08] p-4 sm:border-b-0 sm:border-r">
+              <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-amber-300/25 bg-amber-300/10 text-xs font-black text-amber-200">Ks</span>
+              <div>
+                <p class="text-xl font-black leading-none text-white">MMK {{ formatPrice(product.displayPriceMMK) }}</p>
+                <p class="mt-1 text-[0.6875rem] text-yg-muted">Pay with Myanmar Kyat</p>
+              </div>
+            </div>
+            <div *ngIf="product.featherCost > 0" class="flex items-center gap-3 p-4">
+              <lucide-icon class="text-yg-purple-300" name="sparkles" [size]="28" aria-hidden="true"></lucide-icon>
+              <div>
+                <p class="text-xl font-black leading-none text-yg-purple-200">{{ formatPrice(product.featherCost) }} Feathers</p>
+                <p class="mt-1 text-[0.6875rem] text-yg-muted">Redeem with Feathers</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5 grid gap-5 sm:grid-cols-2">
+            <div>
+              <p class="text-xs font-bold text-white">Color</p>
+              <div class="mt-2.5 flex flex-wrap gap-2">
+                <button
+                  *ngFor="let color of availableColors.length ? availableColors : [selectedColor || 'Black']"
+                  type="button"
+                  class="inline-flex h-8 w-8 items-center justify-center rounded-full border bg-white/[0.04] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 disabled:cursor-not-allowed disabled:opacity-45"
+                  [ngClass]="{
+                    'border-yg-purple-400 ring-2 ring-yg-purple-400/30': selectedColor === color || !showColorOptions,
+                    'border-white/[0.12] hover:border-yg-purple-400/45': selectedColor !== color && showColorOptions
+                  }"
+                  [disabled]="showColorOptions && !isColorAvailable(color)"
+                  [attr.aria-label]="'Select color ' + color"
+                  [attr.aria-pressed]="selectedColor === color || !showColorOptions"
+                  (click)="selectColor(color)">
+                  <span
+                    class="h-6 w-6 rounded-full border border-white/20"
+                    [ngClass]="{
+                      'bg-black': color === 'Black',
+                      'bg-white': color === 'White',
+                      'bg-yg-purple-500': color !== 'Black' && color !== 'White'
+                    }"
+                    aria-hidden="true">
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <p class="text-xs font-bold text-white">Size</p>
+              <div class="mt-2.5 flex flex-wrap gap-2">
+                <button
+                  *ngFor="let size of availableSizes"
+                  type="button"
+                  class="inline-flex min-h-9 min-w-11 items-center justify-center rounded-md border px-3 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 disabled:cursor-not-allowed disabled:opacity-45"
+                  [ngClass]="{
+                    'border-yg-purple-400 bg-yg-purple-600 text-white shadow-glow-sm': selectedSize === size,
+                    'border-white/[0.08] bg-white/[0.035] text-yg-muted hover:text-white': selectedSize !== size
+                  }"
+                  [disabled]="!isSizeAvailable(size)"
+                  [attr.aria-pressed]="selectedSize === size"
+                  (click)="selectSize(size)">
+                  {{ size }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5 grid gap-4 rounded-lg border border-white/[0.08] bg-white/[0.025] p-4 sm:grid-cols-[1fr_auto] sm:items-center">
+            <div>
+              <p class="inline-flex items-center gap-2 text-sm font-bold text-emerald-300">
+                <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.75)]" aria-hidden="true"></span>
+                {{ stockLabel }}
+              </p>
+              <p class="mt-1 text-xs text-yg-muted">{{ stockSupportLabel }}</p>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <p class="text-xs font-bold text-white">Quantity</p>
+              <div class="inline-flex h-10 w-32 items-center justify-between rounded-md border border-white/[0.08] bg-white/[0.035] px-1">
+                <button
+                  type="button"
+                  class="inline-flex h-8 w-8 items-center justify-center rounded-sm text-base font-semibold text-white transition hover:bg-white/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 disabled:cursor-not-allowed disabled:opacity-40"
+                  [disabled]="!selectedVariant || selectedStock <= 0 || quantity <= 1"
+                  aria-label="Decrease quantity"
+                  (click)="updateQuantity(quantity - 1)">
+                  -
+                </button>
+                <span class="text-sm font-bold text-white" aria-live="polite">{{ quantity }}</span>
+                <button
+                  type="button"
+                  class="inline-flex h-8 w-8 items-center justify-center rounded-sm text-base font-semibold text-white transition hover:bg-white/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 disabled:cursor-not-allowed disabled:opacity-40"
+                  [disabled]="!selectedVariant || selectedStock <= 0 || quantity >= selectedStock"
+                  aria-label="Increase quantity"
+                  (click)="updateQuantity(quantity + 1)">
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 grid gap-3 sm:grid-cols-[1fr_3rem]">
+            <button
+              type="button"
+              class="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-yg-purple-600 px-5 text-sm font-bold text-white shadow-glow-sm transition hover:bg-yg-purple-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400 disabled:cursor-not-allowed disabled:bg-yg-elevated disabled:text-yg-muted"
+              [disabled]="!canPurchase"
+              (click)="addToCart()">
+              <lucide-icon name="shopping-cart" [size]="17" aria-hidden="true"></lucide-icon>
+              {{ canPurchase ? 'Add to Cart' : 'Unavailable' }}
+            </button>
+            <button
+              type="button"
+              class="inline-flex min-h-12 items-center justify-center rounded-md border border-white/[0.08] bg-white/[0.035] text-white transition hover:border-yg-purple-400/45 hover:text-yg-purple-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400"
+              [attr.aria-label]="'Add ' + product.title + ' to wishlist'"
+              (click)="wishlist()">
+              <lucide-icon name="heart" [size]="18" aria-hidden="true"></lucide-icon>
+            </button>
+          </div>
+
+          <div class="mt-4 grid gap-3 sm:grid-cols-3">
+            <div *ngFor="let item of trustItems" class="flex items-center gap-2 text-xs text-yg-muted">
+              <lucide-icon class="shrink-0 text-white/80" [name]="item.icon" [size]="16" aria-hidden="true"></lucide-icon>
+              <span>
+                <span class="block font-bold text-white">{{ item.title }}</span>
+                <span class="block text-[0.625rem]">{{ item.description }}</span>
+              </span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <section class="mt-9 overflow-hidden rounded-lg border border-white/[0.08] bg-white/[0.025]" aria-labelledby="product-information-title">
+        <div class="flex border-b border-white/[0.08]" role="tablist" aria-label="Product information sections">
+          <button
+            type="button"
+            role="tab"
+            class="min-h-11 shrink-0 border-b px-5 text-xs font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400"
+            [ngClass]="{
+              'border-yg-purple-400 text-yg-purple-200': activeTab === 'details',
+              'border-transparent text-yg-muted hover:text-white': activeTab !== 'details'
+            }"
+            [attr.aria-selected]="activeTab === 'details'"
+            (click)="selectTab('details')">
+            Product Details
+          </button>
+          <button
+            type="button"
+            role="tab"
+            class="min-h-11 shrink-0 border-b px-5 text-xs font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400"
+            [ngClass]="{
+              'border-yg-purple-400 text-yg-purple-200': activeTab === 'delivery',
+              'border-transparent text-yg-muted hover:text-white': activeTab !== 'delivery'
+            }"
+            [attr.aria-selected]="activeTab === 'delivery'"
+            (click)="selectTab('delivery')">
+            Delivery Information
+          </button>
+          <button
+            type="button"
+            role="tab"
+            class="min-h-11 shrink-0 border-b px-5 text-xs font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yg-purple-400"
+            [ngClass]="{
+              'border-yg-purple-400 text-yg-purple-200': activeTab === 'information',
+              'border-transparent text-yg-muted hover:text-white': activeTab !== 'information'
+            }"
+            [attr.aria-selected]="activeTab === 'information'"
+            (click)="selectTab('information')">
+            Size Guide
+          </button>
+        </div>
+
+        <div class="grid gap-6 p-5 lg:grid-cols-[1.08fr_0.92fr_0.92fr]">
+          <div>
+            <h2 id="product-information-title" class="text-sm font-black text-white">Product Details</h2>
+            <p class="mt-3 text-xs leading-6 text-yg-muted">
+              {{ product.description || 'No additional product details are available.' }}
+            </p>
+            <ul class="mt-4 space-y-2 text-xs leading-5 text-yg-muted">
+              <li>Official YG Fandom merchandise</li>
+              <li>Premium breathable fabric</li>
+              <li>Embroidered YG logo</li>
+              <li>Comfortable and durable fit</li>
+              <li>Limited edition fan drop</li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 class="text-sm font-black text-white">Product Information</h2>
+            <dl class="mt-3 divide-y divide-white/[0.08] text-xs">
+              <div *ngFor="let row of informationRows" class="grid grid-cols-[7rem_1fr] gap-3 py-2">
+                <dt class="text-yg-muted">{{ row.label }}</dt>
+                <dd class="font-semibold text-white">{{ row.value }}</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div>
+            <h2 class="text-sm font-black text-white">Delivery Information</h2>
+            <dl class="mt-3 space-y-3 text-xs">
+              <div *ngFor="let row of deliveryRows" class="grid grid-cols-[7rem_1fr] gap-3">
+                <dt class="text-yg-muted">{{ row.label }}</dt>
+                <dd class="font-semibold text-white">{{ row.value }}</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section *ngIf="relatedProducts.length > 0" class="mt-10" aria-labelledby="related-products-title">
+        <div class="mb-5 flex items-end justify-between gap-4">
+          <div>
+            <h2 id="related-products-title" class="text-2xl font-black text-white">You Might Also Like</h2>
+            <p class="mt-1.5 text-sm text-yg-muted">More merchandise from nearby YG Fandom drops.</p>
+          </div>
+        </div>
+
+        <app-product-grid
+          [products]="relatedProducts"
+          (addToCart)="handleRelatedAddToCart($event)"
+          (wishlist)="handleRelatedWishlist($event)"
+          (viewProduct)="viewProduct($event)">
+        </app-product-grid>
+      </section>
+    </ng-container>
+  </section>
+
+  <app-shop-footer></app-shop-footer>
+</div>

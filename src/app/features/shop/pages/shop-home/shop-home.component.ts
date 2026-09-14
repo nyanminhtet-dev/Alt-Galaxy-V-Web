@@ -22,21 +22,21 @@ export class ShopHomeComponent {
       id: 'tour-ready',
       name: 'YG MLBB Collection',
       productCount: 12,
-      image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=760&q=85',
+      image: 'https://esportphotography.com/wp-content/uploads/2017/10/20160709_Helena-Kristiansson_ESLOneCNG_7349-1.jpg',
       imageAlt: 'Dark esports stage lighting'
     },
     {
       id: 'lightstick-edit',
       name: 'Hello World',
       productCount: 8,
-      image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=760&q=85',
+      image: 'https://crm114.co/wp-content/uploads/2016/03/25022423983_6c762d0fae_k-2.jpg',
       imageAlt: 'Concert crowd holding lights'
     },
     {
       id: 'artist-core',
       name: '2025 Collection',
       productCount: 15,
-      image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=760&q=85',
+      image: 'https://pbs.twimg.com/media/HN7B459bcAAmyvj.jpg',
       imageAlt: 'Premium folded streetwear clothing'
     },
     {

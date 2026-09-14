@@ -3,7 +3,8 @@
     *ngFor="let product of products"
     [product]="product"
     (addToCart)="addToCart.emit($event)"
-    (wishlist)="wishlist.emit($event)">
+    (wishlist)="wishlist.emit($event)"
+    (viewProduct)="viewProduct.emit($event)">
   </app-product-card>
 </div>
 

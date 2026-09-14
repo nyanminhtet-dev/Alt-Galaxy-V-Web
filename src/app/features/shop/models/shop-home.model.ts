@@ -28,6 +28,7 @@ export interface ProductVariant {
   id: string;
   size: string;
   color: string;
+  colorCode?: string;
   stockQty: number;
   active: boolean;
   defaultVariant: boolean;
@@ -35,10 +36,13 @@ export interface ProductVariant {
 
 export interface ShopProduct {
   id: string;
+  slug?: string;
   title: string;
   category: string;
   productType: string;
+  description?: string;
   image: string;
+  images?: string[];
   imageAlt: string;
   displayPriceMMK: number;
   featherCost: number;
